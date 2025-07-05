@@ -4,39 +4,72 @@ import java.sql.*;
 import javax.swing.*;
 
 public class Login extends JFrame implements ActionListener {
-    JTextField tfUsername;
-    JPasswordField pfPassword;
-    JButton loginBtn, registerBtn;
+    JTextField tfu;
+    JPasswordField pfp;
+    JButton lb, rb;
 
     public Login() {
         setTitle("Login");
-        setSize(350, 200);
-        setLayout(new GridLayout(4, 1));
+        setSize(400, 280);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        tfUsername = new JTextField();
-        pfPassword = new JPasswordField();
-        loginBtn = new JButton("Login");
-        registerBtn = new JButton("Go to Register");
+        Color bgColor = new Color(245, 250, 255);
+        Color fieldColor = new Color(230, 240, 255);
 
-        add(new JLabel("Username:"));
-        add(tfUsername);
-        add(new JLabel("Password:"));
-        add(pfPassword);
-        add(loginBtn);
-        add(registerBtn);
+        JPanel p = new JPanel();
+        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
+        p.setBackground(bgColor);
+        p.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
-        loginBtn.addActionListener(this);
-        registerBtn.addActionListener(this);
+        JLabel title = new JLabel("Welcome");
+        title.setFont(new Font("SansSerif", Font.BOLD, 20));
+        title.setForeground(new Color(255, 105, 180)); 
 
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        tfu = new JTextField();
+        tfu.setBackground(fieldColor);
+        tfu.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        tfu.setBorder(BorderFactory.createTitledBorder("Username"));
+
+        pfp = new JPasswordField();
+        pfp.setBackground(fieldColor);
+        pfp.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        pfp.setBorder(BorderFactory.createTitledBorder("Password"));
+
+        lb = new JButton("Login");
+        rb = new JButton("New User");
+
+        JPanel btn = new JPanel(new FlowLayout());
+        btn.setOpaque(false);
+        btn.add(lb);
+        btn.add(rb);
+
+        p.add(title);
+        p.add(Box.createVerticalStrut(15));
+        p.add(tfu);
+        p.add(Box.createVerticalStrut(10));
+        p.add(pfp);
+        p.add(Box.createVerticalStrut(15));
+        p.add(btn);
+
+        add(p);
         setVisible(true);
+
+        lb.addActionListener(this);
+        rb.addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == loginBtn) {
-            String user = tfUsername.getText();
-            String pass = new String(pfPassword.getPassword());
+        if (e.getSource() == lb) {
+            String user = tfu.getText().trim();
+            String pass = new String(pfp.getPassword());
+
+            if (user.isEmpty() || pass.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please fill all fields!");
+                return;
+            }
 
             try (Connection con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/java", "root", "Kshirod#2003")) {
@@ -54,13 +87,14 @@ public class Login extends JFrame implements ActionListener {
                     Client client = new Client("Client: " + user);
                     client.connectToServer(user);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Invalid credentials!");
+                    JOptionPane.showMessageDialog(this, "Invalid username or password!");
                 }
 
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            } catch (SQLException se) {
+                se.printStackTrace();
             }
-        } else if (e.getSource() == registerBtn) {
+
+        } else if (e.getSource() == rb) {
             dispose();
             new Register();
         }
