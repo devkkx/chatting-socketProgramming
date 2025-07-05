@@ -7,7 +7,7 @@ public class Server {
     private static final int PORT = 12345;
     private static final String DB_URL = "jdbc:mysql://localhost:3306/java"; 
     private static final String DB_USER = "root";                         
-    private static final String DB_PASSWORD = "password";             
+    private static final String DB_PASSWORD = "Kshirod#2003";             
 
     private static Set<ClientHandler> clientHandlers = new HashSet<>();
 

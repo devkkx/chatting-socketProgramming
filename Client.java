@@ -46,6 +46,10 @@ public class Client extends JFrame implements ActionListener {
         // Send Button
         sendButton = new JButton(new ImageIcon("send.png"));
         sendButton.setPreferredSize(new Dimension(40, 40));
+        sendButton.setBorder(new CompoundBorder(new LineBorder(new Color(100, 100, 255), 2, true),
+        new EmptyBorder(5, 10, 5, 10)));
+
+
         sendButton.setToolTipText("Send Message");
         sendButton.addActionListener(this);
 
@@ -125,3 +129,4 @@ public class Client extends JFrame implements ActionListener {
         }
     }
 }
+//javac -cp .;mysql-connector-j-9.3.0.jar Client.java
