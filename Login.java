@@ -3,12 +3,12 @@ import java.awt.event.*;
 import java.sql.*;
 import javax.swing.*;
 
-public class LoginPage extends JFrame implements ActionListener {
+public class Login extends JFrame implements ActionListener {
     JTextField tfUsername;
     JPasswordField pfPassword;
     JButton loginBtn, registerBtn;
 
-    public LoginPage() {
+    public Login() {
         setTitle("Login");
         setSize(350, 200);
         setLayout(new GridLayout(4, 1));
@@ -62,11 +62,11 @@ public class LoginPage extends JFrame implements ActionListener {
             }
         } else if (e.getSource() == registerBtn) {
             dispose();
-            new RegisterPage();
+            new Register();
         }
     }
 
     public static void main(String[] args) {
-        new LoginPage();
+        new Login();
     }
 }

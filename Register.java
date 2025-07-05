@@ -1,14 +1,14 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
+import javax.swing.*;
 
-public class RegisterPage extends JFrame implements ActionListener {
+public class Register extends JFrame implements ActionListener {
     JTextField tfUsername;
     JPasswordField pfPassword;
     JButton registerBtn, loginBtn;
 
-    public RegisterPage() {
+    public Register() {
         setTitle("User Registration");
         setSize(350, 200);
         setLayout(new GridLayout(4, 1));
@@ -54,11 +54,11 @@ public class RegisterPage extends JFrame implements ActionListener {
 
         } else if (e.getSource() == loginBtn) {
             dispose();
-            new LoginPage(); // launch login
+            new Login(); // launch login
         }
     }
 
     public static void main(String[] args) {
-        new RegisterPage();
+        new Register();
     }
 }
